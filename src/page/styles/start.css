@@ -1,0 +1,181 @@
+@font-face {
+  font-family: myDragonballFont;
+  src: url("../..//page/styles/dragonballFont/Saiyan-Sans.ttf");
+}
+
+.goku-back,
+.goku-back-walkOne,
+.goku-back-walkTwo,
+.goku-front,
+.goku-front-walkOne,
+.goku-front-walkTwo,
+.goku-left,
+.goku-left-walkOne,
+.goku-left-walkTwo,
+.goku-right,
+.goku-right-walkOne,
+.goku-right-walkTwo {
+  background-image: url(../../../img/goku.png);
+  background-repeat: no-repeat;
+}
+
+.dragonball {
+  background-image: url(../../../img/dragonball.png);
+  background-repeat: no-repeat;
+}
+
+.buriedDragonball {
+  background-image: url(../../../img/buriedDragonball.png);
+  background-repeat: no-repeat;
+}
+
+.goku-back-walkOne {
+  height: 25px;
+  width: 25px;
+  background-position: 0px -6px;
+}
+
+.goku-back {
+  height: 25px;
+  width: 25px;
+  background-position: -20px -5px;
+}
+
+.goku-back-walkTwo {
+  height: 25px;
+  width: 25px;
+  background-position: -42px -6px;
+}
+
+.goku-right-walkOne {
+  height: 25px;
+  width: 25px;
+  background-position: 0px -34px;
+}
+
+.goku-right {
+  height: 25px;
+  width: 25px;
+  background-position: -22px -34px;
+}
+
+.goku-right-walkTwo {
+  height: 25px;
+  width: 25px;
+  background-position: -42px -34px;
+}
+
+.goku-front-walkOne {
+  height: 25px;
+  width: 25px;
+  background-position: 0px -64px;
+}
+
+.goku-front {
+  height: 25px;
+  width: 25px;
+  background-position: -21px -64px;
+}
+
+.goku-front-walkTwo {
+  height: 25px;
+  width: 25px;
+  background-position: -41px -64px;
+}
+
+.goku-left-walkOne {
+  height: 25px;
+  width: 25px;
+  background-position: 0px -94px;
+}
+
+.goku-left {
+  height: 25px;
+  width: 25px;
+  background-position: -21px -94px;
+}
+
+.goku-left-walkTwo {
+  height: 25px;
+  width: 25px;
+  background-position: -41px -94px;
+}
+
+.world-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+/* produces an 21x21 grid*/
+.word-fields {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px;
+  grid-template-columns: 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px;
+  border-radius: 10px;
+  padding: 10px;
+  border-color: orangered;
+}
+
+.open-field {
+  background-image: url("../../../img/grass.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.closed-field {
+  background-image: url("../../../img/wand.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.kiBlast {
+  background-image: url("../../../img/kiBlast.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+}
+
+h1 {
+  font-family: myDragonballFont;
+  font-size: 500%;
+  text-align: center;
+  font-weight: normal;
+}
+
+body {
+  background-image: url("../../../img/dragonballBackground.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#controllPanel {
+  display: flex;
+  justify-content: center;
+  align-content: space-between;
+  font-family: myDragonballFont;
+  font-size: 200%;
+  text-align: center;
+  font-weight: normal;
+}
+
+#controllPanel button {
+  background-color: orangered;
+  font-family: myDragonballFont;
+  display: inline-block;
+  text-align: center;
+  padding: 15px 32px;
+  margin: 15px 15px 15px 15px;
+  font-weight: normal;
+  font-size: 20px;
+}
+
+#profilePic {
+  width: 120px;
+  height: 120px;
+}

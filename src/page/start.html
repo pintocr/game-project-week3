@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Dragonball</title>
+    <!-- CSS FILES ARE LOADED HERE -->
+    <link rel="stylesheet" href="./styles/start.css" />
+  </head>
+  <body>
+    <h1>
+      <span style="color:gold">Search f</span
+      ><span style="color:darkorange; font-size: 120%">o</span
+      ><span style="color:gold">r the Drag</span
+      ><span style="color:darkorange; font-size: 120%">o</span
+      ><span style="color:gold">n</span><span style="color: red">balls</span>
+    </h1>
+    <!-- COMPLETE SITE VIEW -->
+    <div class="screen-containter">
+      <!-- GRID VIEW WHERE THE INTERACTION HAPPENS-->
+      <div class="world-grid">
+        <!-- GRID VIEW OF THE FIELDS-->
+        <div class="world-wrapper">
+          <div class="word-fields"></div>
+        </div>
+      </div>
+
+      <div id="controllPanel">
+        <div>
+          <button>restart</button>
+        </div>
+        <div>
+          <span id="counter">Dragonball counter: 0</span>
+          <img src="../../img/GokuProfle.jpg" id="profilePic"></img>
+        </div>
+      </div>
+    </div>
+    <!-- JAVASCRIPT FILES ARE LOADED HERE -->
+    <script type="text/javascript" src="../../p5/p5/p5.js"></script>
+    <script type="text/javascript" src="../../p5/p5/addons/p5.dom.js"></script>
+    <script type="text/javascript" src="../gameFunctions/fields.js"></script>
+    <script type="text/javascript" src="../gameFunctions/game.js"></script>
+  </body>
+</html>

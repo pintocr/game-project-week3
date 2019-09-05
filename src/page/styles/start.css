@@ -18,6 +18,10 @@
   background-image: url(../../../img/goku.png);
   background-repeat: no-repeat;
 }
+#canvas {
+  z-index: 2;
+  position: absolute;
+}
 
 .dragonball {
   background-image: url(../../../img/dragonball.png);
@@ -109,12 +113,10 @@
 /* produces an 21x21 grid*/
 .word-fields {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
   grid-template-rows: 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px;
   grid-template-columns: 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px;
-  border-radius: 10px;
-  padding: 10px;
   border-color: orangered;
+  position: absolute;
 }
 
 .open-field {
@@ -152,6 +154,7 @@ body {
   background-image: url("../../../img/dragonballBackground.jpg");
   background-repeat: no-repeat;
   background-size: cover;
+  z-index: 1;
 }
 
 #controllPanel {

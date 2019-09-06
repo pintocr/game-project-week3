@@ -154,6 +154,7 @@ class Obstacle {
     this.width = 100;
     this.height = 50;
     this.sourceWidth = 250;
+    this.sourceHeight = 150;
 
     this.img = new Image();
   }
@@ -171,7 +172,7 @@ class Obstacle {
       0,
       0,
       this.sourceWidth,
-      150,
+      this.sourceHeight,
       this.positionX,
       this.positionY,
       this.canvasWidth,
@@ -260,7 +261,7 @@ class SonGoku {
     this.height = 25;
 
     this.img = new Image();
-    this.MOVEMENT_SPEED = 0.5;
+    this.MOVEMENT_SPEED = 0.15;
     this.FACING_DOWN = 0;
     this.FACING_RIGHT = 1;
     this.FACING_UP = 2;
@@ -420,6 +421,16 @@ obstacleFive.width = 50;
 obstacleFive.height = 70;
 obstacleFive.sourceWidth = 150;
 
+let obstacleHouse = new Obstacle(30, 390);
+obstacleHouse.loadImage();
+obstacleHouse.img.src = "./img/house.png";
+canvasObjectsArray.push(obstacleHouse);
+obstacleHouse.canvasWidth = 125;
+obstacleHouse.canvasHeigth = 85;
+obstacleHouse.width = 125;
+obstacleHouse.height = 82;
+obstacleHouse.sourceWidth = 205;
+obstacleHouse.sourceHeight = 150;
 
 let topWoods = new Woods(0, 0);
 topWoods.loadImage();
@@ -450,11 +461,29 @@ let dragonballFour = new DragonBall(430, 180, "dragonballFour");
 dragonballFour.loadImage();
 canvasObjectsArray.push(dragonballFour);
 allDragonballs.push(dragonballFour);
-//change Image for 3rd & 4th Dragonball
+let dragonballFive = new DragonBall(110, 452, "dragonballFive");
+dragonballFive.loadImage();
+canvasObjectsArray.push(dragonballFive);
+allDragonballs.push(dragonballFive);
+let dragonballSix = new DragonBall(500, 400, "dragonballSix");
+dragonballSix.loadImage();
+canvasObjectsArray.push(dragonballSix);
+allDragonballs.push(dragonballSix);
+let dragonballSeven = new DragonBall(400, 380, "dragonballSeven");
+dragonballSeven.loadImage();
+canvasObjectsArray.push(dragonballSeven);
+allDragonballs.push(dragonballSeven);
+//change Image for 3rd, 4th, 5th, 6th & 7th Dragonball
 dragonballThree.img.src = "./img/buriedDragonball.png";
 dragonballThree.status = "buried";
 dragonballFour.img.src = "./img/hiddenDragonball.png";
 dragonballFour.status = "hidden";
+dragonballFive.img.src = "./img/hiddenDragonballHouse.png";
+dragonballFive.status = "hidden";
+dragonballSix.img.src = "./img/buriedDragonball.png";
+dragonballSix.status = "buried";
+dragonballSeven.img.src = "./img/hiddenDragonball.png";
+dragonballSeven.status = "hidden";
 
 function GokuCollision(positionX, positionY, width, height, what) {
   let result = false;
@@ -486,7 +515,7 @@ function GokuCollision(positionX, positionY, width, height, what) {
   return result;
 }
 
-const FRAME_LIMIT = 12;
+const FRAME_LIMIT = 40;
 let canvas = document.querySelector("canvas");
 let ctx = canvas.getContext("2d");
 let keyPresses = {};
@@ -528,7 +557,7 @@ function gameLoop() {
     hasMoved = true;
     hero.direction = 1;
   }
-  if (keyPresses.e) {
+  if (keyPresses.j) {
     let foundDragonball = hero.pickUpItem();
     if (Number.isInteger(foundDragonball)) {
       //delete here from allObjects
@@ -552,7 +581,7 @@ function gameLoop() {
       }
     }
   }
-  if (keyPresses.f) {
+  if (keyPresses.k) {
     if (allKiBlasts.length < 1) {
       ki.positionX = hero.positionX;
       ki.positionY = hero.positionY;
@@ -575,22 +604,29 @@ function gameLoop() {
   if (!hasMoved) {
     currentLoopIndex = 0;
   }
-
-  ground.drawFrame();
-  hero.drawFrame(currentLoopIndex, currentDirection);
-  obstacleOne.drawFrame();
-  obstacleThree.drawFrame();
-  obstacleTwo.drawFrame();
-  obstacleFour.drawFrame();
-  obstacleFive.drawFrame();
-  topWoods.drawFrame();
-  topWoodsTwo.drawFrame();
-  allDragonballs.forEach(element => {
-    element.drawFrame();
-  });
-  allKiBlasts.forEach(element => {
-    element.moveCharacter();
-    element.drawFrame();
-  });
-  window.requestAnimationFrame(gameLoop);
+  if (hero.collectedDragonballs < 7) {
+    ground.drawFrame();
+    hero.drawFrame(currentLoopIndex, currentDirection);
+    obstacleOne.drawFrame();
+    obstacleThree.drawFrame();
+    obstacleTwo.drawFrame();
+    obstacleFour.drawFrame();
+    obstacleFive.drawFrame();
+    obstacleHouse.drawFrame();
+    topWoods.drawFrame();
+    topWoodsTwo.drawFrame();
+    allDragonballs.forEach(element => {
+      element.drawFrame();
+    });
+    allKiBlasts.forEach(element => {
+      element.moveCharacter();
+      element.drawFrame();
+    });
+    window.requestAnimationFrame(gameLoop);
+  }
 }
+
+let button = document.getElementById("button");
+button.onclick = function() {
+  location.reload();
+};

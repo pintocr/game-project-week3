@@ -11,27 +11,31 @@
   <body>
     <h1>
       <span style="color:gold">Search f</span
-      ><span style="color:darkorange; font-size: 120%">o</span
+      ><span style="color:orangered; font-size: 120%">o</span
       ><span style="color:gold">r the Drag</span
-      ><span style="color:darkorange; font-size: 120%">o</span
+      ><span style="color:orangered; font-size: 120%">o</span
       ><span style="color:gold">n</span><span style="color: red">balls</span>
     </h1>
+    <h3>
+      <span>[Up: w] [Right: d] [Down: s] [Left: a] [PickUp: j] [Shoot: k]</span>
+    </h3>
     <!-- COMPLETE SITE VIEW -->
     <div class="screen-container">
       <!-- GRID VIEW WHERE THE INTERACTION HAPPENS-->
       <div class="world-grid">
         <!-- GRID VIEW OF THE FIELDS-->
         <div class="world-wrapper">
-          <div class="word-fields"></div>
+            <!------------ <div class="word-fields"></div>---------------->
           <canvas id="canvas" width="525" height="525"></canvas>
-          <!------------<img src="../../img/shenlong.gif" width="525" height="525"></img>---------------->
+          <img id="winningGif" src="img/shenlong.gif"></img>
         </div>
       </div>
 
       <div id="controllPanel">
-        <div>
+       <div id="buttonContainer">
+          <button id="button">Restart</button>
           <span id="counter">Dragonball counter: 0</span>
-        </div>
+       </div> 
       </div>
     </div>
     <!-- JAVASCRIPT FILES ARE LOADED HERE -->

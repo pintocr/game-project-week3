@@ -4,17 +4,14 @@
 }
 
 #canvas {
-  z-index: 2;
   position: absolute;
 }
 
-#shenlong {
-  width: 20%;
-  height: 20%;
-}
-
-.screen-container {
-  display: grid;
+#winningGif {
+  width: 525px;
+  height: 525px;
+  border-color: gold;
+  border-width: 5px;
 }
 
 .world-wrapper {
@@ -25,21 +22,18 @@
 /* produces an 21x21 grid*/
 .word-fields {
   display: grid;
-  grid-template-rows: 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px;
-  grid-template-columns: 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px;
-}
-
-.open-field {
-  background-image: url("../../../img/grass.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-  width: 100%;
-  height: 100%;
 }
 
 h1 {
   font-family: myDragonballFont;
   font-size: 500%;
+  text-align: center;
+  font-weight: normal;
+}
+
+h3 {
+font-family: myDragonballFont;
+  font-size: 150%;
   text-align: center;
   font-weight: normal;
 }
@@ -51,24 +45,28 @@ body {
 }
 
 #controllPanel {
+  display: flex;
   font-family: myDragonballFont;
+  justify-content: center;
   font-size: 200%;
   text-align: center;
   font-weight: normal;
+  color: yellow;
+}
+
+#buttonContainer {
+  width: 525px;
+  background-color: rgba(255, 68, 0, 0.74);
 }
 
 #controllPanel button {
-  background-color: orangered;
+  background-color: rgba(255, 68, 0, 0.74);
   font-family: myDragonballFont;
-  display: inline-block;
   text-align: center;
   padding: 15px 32px;
   margin: 15px 15px 15px 15px;
   font-weight: normal;
   font-size: 20px;
-}
-
-#profilePic {
-  width: 120px;
-  height: 120px;
+  border-color: black;
+  border-width: 5px;
 }

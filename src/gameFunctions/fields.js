@@ -445,14 +445,14 @@ let fields = [
   { id: "20-19", classname: "open-field" },
   { id: "20-20", classname: "open-field" }
 ];
-
+/*
 document.addEventListener("DOMContentLoaded", function() {
   let html = "";
-/*
+
   fields.forEach(element => {
     html += `<div id="${element.id}" class="${element.classname}"></div>`;
   });
-*/
+
   // Add all the divs to the HTML
   document.querySelector(".word-fields").innerHTML = html;
-});
+});*/

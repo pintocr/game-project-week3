@@ -448,10 +448,11 @@ let fields = [
 
 document.addEventListener("DOMContentLoaded", function() {
   let html = "";
+/*
   fields.forEach(element => {
     html += `<div id="${element.id}" class="${element.classname}"></div>`;
   });
-
+*/
   // Add all the divs to the HTML
   document.querySelector(".word-fields").innerHTML = html;
 });

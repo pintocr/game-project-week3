@@ -22,7 +22,7 @@ class KiBlast {
   }
 
   loadImage() {
-    this.img.src = "../../img/kiBlast.bmp";
+    this.img.src = "./img/kiBlast.bmp";
     this.img.onload = function() {
       window.requestAnimationFrame(gameLoop);
     };
@@ -140,7 +140,7 @@ class KiBlast {
     );
     if (Number.isInteger(result)) {
       allDragonballs[result].status = "normal";
-      allDragonballs[result].img.src = "../../img/freeDragonball.png";
+      allDragonballs[result].img.src = "./img/freeDragonball.png";
     }
   }
 }
@@ -159,7 +159,7 @@ class Obstacle {
   }
 
   loadImage() {
-    this.img.src = "../../img/rocks.bmp";
+    this.img.src = "./img/rocks.bmp";
     this.img.onload = function() {
       window.requestAnimationFrame(gameLoop);
     };
@@ -192,7 +192,7 @@ class Woods {
   }
 
   loadImage() {
-    this.img.src = "../../img/wood.bmp";
+    this.img.src = "./img/wood.bmp";
     this.img.onload = function() {
       window.requestAnimationFrame(gameLoop);
     };
@@ -226,7 +226,7 @@ class DragonBall {
     this.img = new Image();
   }
   loadImage() {
-    this.img.src = "../../img/dragonball.png";
+    this.img.src = "./img/dragonball.png";
     this.img.onload = function() {
       window.requestAnimationFrame(gameLoop);
     };
@@ -270,7 +270,7 @@ class SonGoku {
   }
 
   loadImage() {
-    this.img.src = "../../img/gokuWalk.bmp";
+    this.img.src = "./img/gokuWalk.bmp";
     this.img.onload = function() {
       window.requestAnimationFrame(gameLoop);
     };
@@ -352,6 +352,40 @@ class SonGoku {
   }
 }
 
+class Grass {
+  constructor() {
+    this.characterWidth = 25;
+    this.characterHeigth = 25;
+    this.positionX = 0;
+    this.positionY = 0;
+    this.canvasWidth = 525;
+    this.canvasHeigth = 525;
+
+    this.img = new Image();
+  }
+
+  loadImage() {
+    this.img.src = "./img/grass.png";
+    this.img.onload = function() {
+      window.requestAnimationFrame(gameLoop);
+    };
+  }
+
+  drawFrame(frameX, frameY) {
+    ctx.drawImage(
+      this.img,
+      this.characterWidth,
+      this.characterHeigth,
+      this.characterWidth,
+      this.characterHeigth,
+      this.positionX,
+      this.positionY,
+      this.canvasWidth,
+      this.canvasHeigth
+    );
+  }
+}
+
 /**
  *
  * Here I create my Objects and load the images
@@ -359,6 +393,8 @@ class SonGoku {
  *
  */
 
+let ground = new Grass();
+ground.loadImage();
 let canvasObjectsArray = [];
 let hero = new SonGoku();
 hero.loadImage();
@@ -415,9 +451,9 @@ dragonballFour.loadImage();
 canvasObjectsArray.push(dragonballFour);
 allDragonballs.push(dragonballFour);
 //change Image for 3rd & 4th Dragonball
-dragonballThree.img.src = "../../img/buriedDragonball.png";
+dragonballThree.img.src = "./img/buriedDragonball.png";
 dragonballThree.status = "buried";
-dragonballFour.img.src = "../../img/hiddenDragonball.png";
+dragonballFour.img.src = "./img/hiddenDragonball.png";
 dragonballFour.status = "hidden";
 
 function GokuCollision(positionX, positionY, width, height, what) {
@@ -498,7 +534,7 @@ function gameLoop() {
       //delete here from allObjects
       keyPresses.e = false;
       if (allDragonballs[foundDragonball].status === "buried") {
-        allDragonballs[foundDragonball].img.src = "../../img/dragonball.png";
+        allDragonballs[foundDragonball].img.src = "./img/dragonball.png";
         allDragonballs[foundDragonball].loadImage();
         allDragonballs[foundDragonball].status = "normal";
         buriedTime = false;
@@ -540,6 +576,7 @@ function gameLoop() {
     currentLoopIndex = 0;
   }
 
+  ground.drawFrame();
   hero.drawFrame(currentLoopIndex, currentDirection);
   obstacleOne.drawFrame();
   obstacleThree.drawFrame();

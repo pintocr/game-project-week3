@@ -79,6 +79,7 @@ class KiBlast {
           this.CYCLE_INDEX = 0;
         }
       } else {
+        this.breakStone();
         allKiBlasts.splice(0, 1);
       }
     } else {
@@ -103,10 +104,43 @@ class KiBlast {
           this.CYCLE_INDEX = 0;
         }
       } else {
+        this.breakStone();
         allKiBlasts.splice(0, 1);
       }
     } else {
       allKiBlasts.splice(0, 1);
+    }
+  }
+
+  breakStone() {
+    //free the dragonballs
+    let deltaX = 0;
+    let deltaY = 0;
+    switch (this.direction) {
+      case 0:
+        deltaY += 0.75;
+        break;
+      case 1:
+        deltaX += 0.75;
+        break;
+      case 2:
+        deltaY -= 0.75;
+        break;
+      case 3:
+        deltaX -= 0.75;
+        break;
+    }
+
+    let result = GokuCollision(
+      this.positionX + deltaX,
+      this.positionY + deltaY,
+      this.width,
+      this.height,
+      "dragonball"
+    );
+    if (Number.isInteger(result)) {
+      allDragonballs[result].status = "normal";
+      allDragonballs[result].img.src = "../../img/freeDragonball.png";
     }
   }
 }
@@ -117,8 +151,9 @@ class Obstacle {
     this.positionY = positionY;
     this.canvasWidth = 100;
     this.canvasHeigth = 50;
-    this.width = 25;
-    this.height = 25;
+    this.width = 100;
+    this.height = 50;
+    this.sourceWidth = 250;
 
     this.img = new Image();
   }
@@ -135,8 +170,41 @@ class Obstacle {
       this.img,
       0,
       0,
+      this.sourceWidth,
       150,
-      85,
+      this.positionX,
+      this.positionY,
+      this.canvasWidth,
+      this.canvasHeigth
+    );
+  }
+}
+
+class Woods {
+  constructor(positionX, positionY) {
+    this.positionX = positionX;
+    this.positionY = positionY;
+    this.canvasWidth = 350;
+    this.canvasHeigth = 50;
+    this.width = 350;
+    this.height = 50;
+    this.img = new Image();
+  }
+
+  loadImage() {
+    this.img.src = "../../img/wood.bmp";
+    this.img.onload = function() {
+      window.requestAnimationFrame(gameLoop);
+    };
+  }
+
+  drawFrame() {
+    ctx.drawImage(
+      this.img,
+      0,
+      0,
+      1600,
+      200,
       this.positionX,
       this.positionY,
       this.canvasWidth,
@@ -150,11 +218,11 @@ class DragonBall {
     this.name = name;
     this.positionX = positionX;
     this.positionY = positionY;
-    this.canvasWidth = 25;
-    this.canvasHeigth = 25;
-    this.width = 25;
-    this.height = 25;
-
+    this.canvasWidth = 20;
+    this.canvasHeigth = 20;
+    this.width = 20;
+    this.height = 20;
+    this.status = "normal"; //buried, hidden or normal
     this.img = new Image();
   }
   loadImage() {
@@ -284,26 +352,73 @@ class SonGoku {
   }
 }
 
-//Here I create my Objects and load the images
+/**
+ *
+ * Here I create my Objects and load the images
+ *
+ *
+ */
+
 let canvasObjectsArray = [];
 let hero = new SonGoku();
 hero.loadImage();
-let obstacleOne = new Obstacle(50, 50);
+let obstacleOne = new Obstacle(0, 220);
 obstacleOne.loadImage();
 canvasObjectsArray.push(obstacleOne);
 let obstacleTwo = new Obstacle(350, 350);
 obstacleTwo.loadImage();
 canvasObjectsArray.push(obstacleTwo);
-let dragonballOne = new DragonBall(200, 200, "dragonballOne");
+let obstacleThree = new Obstacle(430, 350);
+obstacleThree.loadImage();
+canvasObjectsArray.push(obstacleThree);
+let obstacleFour = new Obstacle(430, 150);
+obstacleFour.loadImage();
+canvasObjectsArray.push(obstacleFour);
+
+let obstacleFive = new Obstacle(380, 130);
+obstacleFive.loadImage();
+canvasObjectsArray.push(obstacleFive);
+obstacleFive.canvasWidth = 50;
+obstacleFive.canvasHeigth = 70;
+obstacleFive.width = 50;
+obstacleFive.height = 70;
+obstacleFive.sourceWidth = 150;
+
+
+let topWoods = new Woods(0, 0);
+topWoods.loadImage();
+canvasObjectsArray.push(topWoods);
+let topWoodsTwo = new Woods(350, 0);
+topWoodsTwo.loadImage();
+canvasObjectsArray.push(topWoodsTwo);
+
 let allKiBlasts = [];
 let ki = new KiBlast(hero.positionX, hero.positionY, hero.direction);
 ki.loadImage();
 
 //Here we create all the Dragonballs
 let allDragonballs = [];
+let dragonballOne = new DragonBall(100, 255, "dragonballOne");
 dragonballOne.loadImage();
 canvasObjectsArray.push(dragonballOne);
 allDragonballs.push(dragonballOne);
+let dragonballTwo = new DragonBall(400, 40, "dragonballTwo");
+dragonballTwo.loadImage();
+canvasObjectsArray.push(dragonballTwo);
+allDragonballs.push(dragonballTwo);
+let dragonballThree = new DragonBall(10, 44, "dragonballThree");
+dragonballThree.loadImage();
+canvasObjectsArray.push(dragonballThree);
+allDragonballs.push(dragonballThree);
+let dragonballFour = new DragonBall(430, 180, "dragonballFour");
+dragonballFour.loadImage();
+canvasObjectsArray.push(dragonballFour);
+allDragonballs.push(dragonballFour);
+//change Image for 3rd & 4th Dragonball
+dragonballThree.img.src = "../../img/buriedDragonball.png";
+dragonballThree.status = "buried";
+dragonballFour.img.src = "../../img/hiddenDragonball.png";
+dragonballFour.status = "hidden";
 
 function GokuCollision(positionX, positionY, width, height, what) {
   let result = false;
@@ -381,13 +496,24 @@ function gameLoop() {
     let foundDragonball = hero.pickUpItem();
     if (Number.isInteger(foundDragonball)) {
       //delete here from allObjects
-      canvasObjectsArray.forEach((element, index) => {
-        if (element === allDragonballs[foundDragonball]) {
-          canvasObjectsArray.splice(index, index + 1);
-        }
-      });
-      allDragonballs.splice(foundDragonball, foundDragonball + 1);
-      hero.collectedDragonballs++;
+      keyPresses.e = false;
+      if (allDragonballs[foundDragonball].status === "buried") {
+        allDragonballs[foundDragonball].img.src = "../../img/dragonball.png";
+        allDragonballs[foundDragonball].loadImage();
+        allDragonballs[foundDragonball].status = "normal";
+        buriedTime = false;
+      } else if (allDragonballs[foundDragonball].status === "normal") {
+        canvasObjectsArray.forEach((element, index) => {
+          if (element.name === allDragonballs[foundDragonball].name) {
+            canvasObjectsArray.splice(index, 1);
+          }
+        });
+        allDragonballs.splice(foundDragonball, 1);
+        hero.collectedDragonballs++;
+        document.getElementById(
+          "counter"
+        ).innerHTML = `Dragonball counter: ${hero.collectedDragonballs}`;
+      }
     }
   }
   if (keyPresses.f) {
@@ -416,7 +542,12 @@ function gameLoop() {
 
   hero.drawFrame(currentLoopIndex, currentDirection);
   obstacleOne.drawFrame();
+  obstacleThree.drawFrame();
   obstacleTwo.drawFrame();
+  obstacleFour.drawFrame();
+  obstacleFive.drawFrame();
+  topWoods.drawFrame();
+  topWoodsTwo.drawFrame();
   allDragonballs.forEach(element => {
     element.drawFrame();
   });
@@ -424,6 +555,5 @@ function gameLoop() {
     element.moveCharacter();
     element.drawFrame();
   });
-
   window.requestAnimationFrame(gameLoop);
 }

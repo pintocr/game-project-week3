@@ -561,7 +561,7 @@ function gameLoop() {
     let foundDragonball = hero.pickUpItem();
     if (Number.isInteger(foundDragonball)) {
       //delete here from allObjects
-      keyPresses.e = false;
+      keyPresses.j = false;
       if (allDragonballs[foundDragonball].status === "buried") {
         allDragonballs[foundDragonball].img.src = "./img/dragonball.png";
         allDragonballs[foundDragonball].loadImage();

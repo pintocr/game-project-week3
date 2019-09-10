@@ -4,19 +4,26 @@
 }
 
 #canvas {
-  position: absolute;
+  display: flex;
 }
 
 #winningGif {
+  display: none;
   width: 525px;
   height: 525px;
-  border-color: gold;
-  border-width: 5px;
+}
+
+#gameOver {
+  display: none;
+  width: 525px;
+  height: 525px;
 }
 
 .world-wrapper {
   display: flex;
+  flex-direction: row;
   justify-content: center;
+  align-items: flex-start;
 }
 
 /* produces an 21x21 grid*/
@@ -26,16 +33,20 @@
 
 h1 {
   font-family: myDragonballFont;
-  font-size: 500%;
+  font-size: 400%;
   text-align: center;
   font-weight: normal;
 }
 
 h3 {
-font-family: myDragonballFont;
   font-size: 150%;
   text-align: center;
-  font-weight: normal;
+  font-weight: bold;
+  padding: 5px 5px 5px 5px;
+  border: 5px solid black;
+  margin: 5px;
+  background-color: rgba(255, 68, 0, 0.74);
+  color: gold;
 }
 
 body {
@@ -45,28 +56,38 @@ body {
 }
 
 #controllPanel {
-  display: flex;
   font-family: myDragonballFont;
-  justify-content: center;
   font-size: 200%;
-  text-align: center;
+  text-align: left;
   font-weight: normal;
-  color: yellow;
+  color: gold;
+  background-color: rgba(255, 68, 0);
+  padding: 5px 5px 5px 5px;
+  border: 5px solid black;
+  margin: 5px;
 }
 
 #buttonContainer {
-  width: 525px;
-  background-color: rgba(255, 68, 0, 0.74);
+  background-color: rgba(255, 68, 0);
 }
 
 #controllPanel button {
-  background-color: rgba(255, 68, 0, 0.74);
+  background-color: rgba(255, 68, 0);
   font-family: myDragonballFont;
   text-align: center;
   padding: 15px 32px;
   margin: 15px 15px 15px 15px;
   font-weight: normal;
   font-size: 20px;
-  border-color: black;
+  border-color: gold;
   border-width: 5px;
+  color: gold;
+}
+
+#controllPanel span {
+  text-align: left;
+  padding: 1px 1px 1px 1px;
+  border: 1px solid rgba(255, 68, 0);
+  margin: 15px;
+  background-color: rgba(255, 68, 0);
 }

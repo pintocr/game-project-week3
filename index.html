@@ -16,30 +16,45 @@
       ><span style="color:orangered; font-size: 120%">o</span
       ><span style="color:gold">n</span><span style="color: red">balls</span>
     </h1>
-    <h3>
-      <span>[Up: w] [Right: d] [Down: s] [Left: a] [PickUp: j] [Shoot: k]</span>
-    </h3>
+    
     <!-- COMPLETE SITE VIEW -->
     <div class="screen-container">
       <!-- GRID VIEW WHERE THE INTERACTION HAPPENS-->
       <div class="world-grid">
         <!-- GRID VIEW OF THE FIELDS-->
         <div class="world-wrapper">
+          <div id="controllPanel">
+            <span>Son Goku<br></span>
+            <span id = "lifePoints">Life Points: 100<br></span>
+            <span id="energy">Energy: 100<br></span>
+            <span id = "time">Time: 2m 4s<br></span>
+            <span id="counter">Dragonball counter: 0</span>
+
+            <div id="buttonContainer">
+              <button id="button">Restart</button>
+            </div>
+          </div>
             <!------------ <div class="word-fields"></div>---------------->
-          <canvas id="canvas" width="525" height="525"></canvas>
-          <img id="winningGif" src="img/shenlong.gif"></img>
+              <img id="winningGif" src="img/shenlong.gif"></img>
+              <img id="gameOver" src="img/GameOver.jpeg"></img>
+              <canvas id="canvas" width="525" height="525"></canvas>
+          <h3 id="mission">
+            <span>Game Control:<br></span>
+            <span>          [Up: w]<br> [Right: d] [Down: s] [Left: a]<br> [PickUp: j] [Shoot: k]<br></span>
+
+            <span><br>Mission:<br></span>
+            <span>Find all 7 Dragonballs<br> to safe planet Earth!<br></span>
+            <span>Hurry! You only have 2 minutes!<br></span>
+            </h3>
         </div>
       </div>
 
-      <div id="controllPanel">
-       <div id="buttonContainer">
-          <button id="button">Restart</button>
-          <span id="counter">Dragonball counter: 0</span>
-       </div> 
-      </div>
+     
     </div>
     <!-- JAVASCRIPT FILES ARE LOADED HERE -->
-    <script type="text/javascript" src="./src/gameFunctions/fields.js"></script>
+    <script type="text/javascript" src="./src/gameFunctions/gameObjects.js"></script>
+    <script type="text/javascript" src="./src/gameFunctions/keyPresses.js"></script>
+    <script type="text/javascript" src="./src/gameFunctions/villainAI.js"></script>
     <script type="text/javascript" src="./game.js"></script>
   </body>
 </html>

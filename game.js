@@ -3,390 +3,6 @@
  * 'Dragonball GAME
  *
  */
-
-class KiBlast {
-  constructor(x, y, dir) {
-    this.CYCLE_LOOP = [0, 1, 0, 0, 1, 0];
-    this.CYCLE_INDEX = 0;
-    this.positionX = x;
-    this.positionY = y;
-    this.canvasWidth = 25;
-    this.canvasHeigth = 25;
-    this.width = 25;
-    this.height = 25;
-    this.characterWidth = 21;
-    this.characterHeigth = 21;
-
-    this.img = new Image();
-    this.direction = dir;
-  }
-
-  loadImage() {
-    this.img.src = "./img/kiBlast.bmp";
-    this.img.onload = function() {
-      window.requestAnimationFrame(gameLoop);
-    };
-  }
-
-  drawFrame() {
-    ctx.drawImage(
-      this.img,
-      this.CYCLE_LOOP[this.CYCLE_INDEX] * this.characterWidth,
-      this.characterHeigth * this.direction,
-      this.characterWidth,
-      this.characterHeigth,
-      this.positionX,
-      this.positionY,
-      this.canvasWidth,
-      this.canvasHeigth
-    );
-  }
-
-  moveCharacter() {
-    let deltaX = 0;
-    let deltaY = 0;
-    switch (this.direction) {
-      case 0:
-        deltaY += 0.75;
-        break;
-      case 1:
-        deltaX += 0.75;
-        break;
-      case 2:
-        deltaY -= 0.75;
-        break;
-      case 3:
-        deltaX -= 0.75;
-        break;
-    }
-
-    if (
-      this.positionX + deltaX > 0 &&
-      this.positionX + 25 + deltaX < canvas.width
-    ) {
-      let borderObjects = GokuCollision(
-        this.positionX + deltaX,
-        this.positionY + deltaY,
-        this.width,
-        this.height,
-        "all"
-      );
-      if (borderObjects === false) {
-        this.positionX += deltaX;
-        if (this.CYCLE_INDEX < 6) {
-          this.CYCLE_INDEX++;
-        } else {
-          this.CYCLE_INDEX = 0;
-        }
-      } else {
-        this.breakStone();
-        allKiBlasts.splice(0, 1);
-      }
-    } else {
-      allKiBlasts.splice(0, 1);
-    }
-    if (
-      this.positionY + deltaY > 0 &&
-      this.positionY + 25 + deltaY < canvas.height
-    ) {
-      let borderObjects2 = GokuCollision(
-        this.positionX + deltaX,
-        this.positionY + deltaY,
-        this.width,
-        this.height,
-        "all"
-      );
-      if (borderObjects2 === false) {
-        this.positionY += deltaY;
-        if (this.CYCLE_INDEX < 6) {
-          this.CYCLE_INDEX++;
-        } else {
-          this.CYCLE_INDEX = 0;
-        }
-      } else {
-        this.breakStone();
-        allKiBlasts.splice(0, 1);
-      }
-    } else {
-      allKiBlasts.splice(0, 1);
-    }
-  }
-
-  breakStone() {
-    //free the dragonballs
-    let deltaX = 0;
-    let deltaY = 0;
-    switch (this.direction) {
-      case 0:
-        deltaY += 0.75;
-        break;
-      case 1:
-        deltaX += 0.75;
-        break;
-      case 2:
-        deltaY -= 0.75;
-        break;
-      case 3:
-        deltaX -= 0.75;
-        break;
-    }
-
-    let result = GokuCollision(
-      this.positionX + deltaX,
-      this.positionY + deltaY,
-      this.width,
-      this.height,
-      "dragonball"
-    );
-    if (Number.isInteger(result)) {
-      allDragonballs[result].status = "normal";
-      allDragonballs[result].img.src = "./img/freeDragonball.png";
-    }
-  }
-}
-
-class Obstacle {
-  constructor(positionX, positionY) {
-    this.positionX = positionX;
-    this.positionY = positionY;
-    this.canvasWidth = 100;
-    this.canvasHeigth = 50;
-    this.width = 100;
-    this.height = 50;
-    this.sourceWidth = 250;
-    this.sourceHeight = 150;
-
-    this.img = new Image();
-  }
-
-  loadImage() {
-    this.img.src = "./img/rocks.bmp";
-    this.img.onload = function() {
-      window.requestAnimationFrame(gameLoop);
-    };
-  }
-
-  drawFrame() {
-    ctx.drawImage(
-      this.img,
-      0,
-      0,
-      this.sourceWidth,
-      this.sourceHeight,
-      this.positionX,
-      this.positionY,
-      this.canvasWidth,
-      this.canvasHeigth
-    );
-  }
-}
-
-class Woods {
-  constructor(positionX, positionY) {
-    this.positionX = positionX;
-    this.positionY = positionY;
-    this.canvasWidth = 350;
-    this.canvasHeigth = 50;
-    this.width = 350;
-    this.height = 50;
-    this.img = new Image();
-  }
-
-  loadImage() {
-    this.img.src = "./img/wood.bmp";
-    this.img.onload = function() {
-      window.requestAnimationFrame(gameLoop);
-    };
-  }
-
-  drawFrame() {
-    ctx.drawImage(
-      this.img,
-      0,
-      0,
-      1600,
-      200,
-      this.positionX,
-      this.positionY,
-      this.canvasWidth,
-      this.canvasHeigth
-    );
-  }
-}
-
-class DragonBall {
-  constructor(positionX, positionY, name) {
-    this.name = name;
-    this.positionX = positionX;
-    this.positionY = positionY;
-    this.canvasWidth = 20;
-    this.canvasHeigth = 20;
-    this.width = 20;
-    this.height = 20;
-    this.status = "normal"; //buried, hidden or normal
-    this.img = new Image();
-  }
-  loadImage() {
-    this.img.src = "./img/dragonball.png";
-    this.img.onload = function() {
-      window.requestAnimationFrame(gameLoop);
-    };
-  }
-
-  drawFrame() {
-    ctx.drawImage(
-      this.img,
-      0,
-      0,
-      25,
-      25,
-      this.positionX,
-      this.positionY,
-      this.canvasWidth,
-      this.canvasHeigth
-    );
-  }
-}
-
-class SonGoku {
-  constructor() {
-    this.CYCLE_LOOP = [2, 0, 1, 2, 3, 4];
-    this.characterWidth = 28;
-    this.characterHeigth = 40;
-    this.positionX = 175;
-    this.positionY = 175;
-    this.canvasWidth = 25;
-    this.canvasHeigth = 25;
-    this.width = 25;
-    this.height = 25;
-
-    this.img = new Image();
-    this.MOVEMENT_SPEED = 0.15;
-    this.FACING_DOWN = 0;
-    this.FACING_RIGHT = 1;
-    this.FACING_UP = 2;
-    this.FACING_LEFT = 3;
-    this.direction = 0;
-    this.collectedDragonballs = 0;
-  }
-
-  loadImage() {
-    this.img.src = "./img/gokuWalk.bmp";
-    this.img.onload = function() {
-      window.requestAnimationFrame(gameLoop);
-    };
-  }
-
-  drawFrame(frameX, frameY) {
-    ctx.drawImage(
-      this.img,
-      this.CYCLE_LOOP[frameX] * this.characterWidth,
-      frameY * this.characterHeigth,
-      this.characterWidth,
-      this.characterHeigth,
-      this.positionX,
-      this.positionY,
-      this.canvasWidth,
-      this.canvasHeigth
-    );
-  }
-
-  moveCharacter(deltaX, deltaY, direction) {
-    if (
-      hero.positionX + deltaX > 0 &&
-      hero.positionX + 25 + deltaX < canvas.width
-    ) {
-      let borderObjects = GokuCollision(
-        hero.positionX + deltaX,
-        hero.positionY + deltaY,
-        hero.width,
-        hero.height,
-        "all"
-      );
-      if (borderObjects === false) {
-        hero.positionX += deltaX;
-      }
-    }
-    if (
-      hero.positionY + deltaY > 0 &&
-      hero.positionY + 25 + deltaY < canvas.height
-    ) {
-      let borderObjects2 = GokuCollision(
-        hero.positionX + deltaX,
-        hero.positionY + deltaY,
-        hero.width,
-        hero.height,
-        "all"
-      );
-      if (borderObjects2 === false) {
-        hero.positionY += deltaY;
-      }
-    }
-    currentDirection = direction;
-  }
-
-  pickUpItem() {
-    let deltaX = 0;
-    let deltaY = 0;
-    switch (this.direction) {
-      case 0:
-        deltaY += 5;
-        break;
-      case 1:
-        deltaX += 5;
-        break;
-      case 2:
-        deltaY -= 5;
-        break;
-      case 3:
-        deltaX -= 5;
-        break;
-    }
-    let result = GokuCollision(
-      this.positionX + deltaX,
-      this.positionY + deltaY,
-      this.width,
-      this.height,
-      "dragonball"
-    );
-    return result;
-  }
-}
-
-class Grass {
-  constructor() {
-    this.characterWidth = 25;
-    this.characterHeigth = 25;
-    this.positionX = 0;
-    this.positionY = 0;
-    this.canvasWidth = 525;
-    this.canvasHeigth = 525;
-
-    this.img = new Image();
-  }
-
-  loadImage() {
-    this.img.src = "./img/grass.png";
-    this.img.onload = function() {
-      window.requestAnimationFrame(gameLoop);
-    };
-  }
-
-  drawFrame(frameX, frameY) {
-    ctx.drawImage(
-      this.img,
-      this.characterWidth,
-      this.characterHeigth,
-      this.characterWidth,
-      this.characterHeigth,
-      this.positionX,
-      this.positionY,
-      this.canvasWidth,
-      this.canvasHeigth
-    );
-  }
-}
-
 /**
  *
  * Here I create my Objects and load the images
@@ -394,11 +10,16 @@ class Grass {
  *
  */
 
-let ground = new Grass();
+//Background
+let ground = new Grass(0, 0);
 ground.loadImage();
+//array for collision detection
 let canvasObjectsArray = [];
-let hero = new SonGoku();
+//Son Goku
+let hero = new SonGoku(75, 105);
 hero.loadImage();
+
+//ROCKS
 let obstacleOne = new Obstacle(0, 220);
 obstacleOne.loadImage();
 canvasObjectsArray.push(obstacleOne);
@@ -411,27 +32,29 @@ canvasObjectsArray.push(obstacleThree);
 let obstacleFour = new Obstacle(430, 150);
 obstacleFour.loadImage();
 canvasObjectsArray.push(obstacleFour);
-
+//Different ROCK
 let obstacleFive = new Obstacle(380, 130);
 obstacleFive.loadImage();
 canvasObjectsArray.push(obstacleFive);
 obstacleFive.canvasWidth = 50;
-obstacleFive.canvasHeigth = 70;
+obstacleFive.canvasheight = 70;
 obstacleFive.width = 50;
 obstacleFive.height = 70;
 obstacleFive.sourceWidth = 150;
 
+//House
 let obstacleHouse = new Obstacle(30, 390);
 obstacleHouse.loadImage();
 obstacleHouse.img.src = "./img/house.png";
 canvasObjectsArray.push(obstacleHouse);
 obstacleHouse.canvasWidth = 125;
-obstacleHouse.canvasHeigth = 85;
+obstacleHouse.canvasheight = 85;
 obstacleHouse.width = 125;
 obstacleHouse.height = 82;
 obstacleHouse.sourceWidth = 205;
 obstacleHouse.sourceHeight = 150;
 
+//TOP BORDER FOREST
 let topWoods = new Woods(0, 0);
 topWoods.loadImage();
 canvasObjectsArray.push(topWoods);
@@ -449,7 +72,7 @@ let dragonballOne = new DragonBall(100, 255, "dragonballOne");
 dragonballOne.loadImage();
 canvasObjectsArray.push(dragonballOne);
 allDragonballs.push(dragonballOne);
-let dragonballTwo = new DragonBall(400, 40, "dragonballTwo");
+let dragonballTwo = new DragonBall(460, 40, "dragonballTwo");
 dragonballTwo.loadImage();
 canvasObjectsArray.push(dragonballTwo);
 allDragonballs.push(dragonballTwo);
@@ -485,6 +108,36 @@ dragonballSix.status = "buried";
 dragonballSeven.img.src = "./img/hiddenDragonball.png";
 dragonballSeven.status = "hidden";
 
+let antiHeroObjectArray = Array.from(canvasObjectsArray);
+let justTheHero = [];
+let justTheEnemy = [];
+antiHeroObjectArray.push(hero);
+justTheHero.push(hero);
+//freezer firstEnemy
+let enemy = new Villain(350, 100);
+enemy.loadImage();
+canvasObjectsArray.push(enemy);
+justTheEnemy.push(enemy);
+//cell secondEnemy
+let secondEnemy = new Villain(140, 260);
+secondEnemy.loadImage();
+secondEnemy.sourceWidth = 48;
+secondEnemy.sourceheight = 73;
+secondEnemy.img.src = "./img/cellWalk.png";
+canvasObjectsArray.push(secondEnemy);
+justTheEnemy.push(secondEnemy);
+//buu thirdEnemy
+let thirdEnemy = new Villain(330, 420);
+thirdEnemy.loadImage();
+thirdEnemy.sourceWidth = 23;
+thirdEnemy.sourceHeight = 54;
+thirdEnemy.img.src = "./img/buuWalk.png";
+canvasObjectsArray.push(thirdEnemy);
+justTheEnemy.push(thirdEnemy);
+
+let kiEnemy = new KiEnergy(enemy.positionX, enemy.positionY, enemy.direction);
+kiEnemy.loadImage();
+
 function GokuCollision(positionX, positionY, width, height, what) {
   let result = false;
 
@@ -499,7 +152,7 @@ function GokuCollision(positionX, positionY, width, height, what) {
         result = true;
       }
     });
-  } else {
+  } else if (what === "dragonball") {
     allDragonballs.forEach((element, index) => {
       if (
         positionX < element.positionX + element.width &&
@@ -510,17 +163,51 @@ function GokuCollision(positionX, positionY, width, height, what) {
         result = index;
       }
     });
+  } else if (what === "heroSearch") {
+    justTheHero.forEach(element => {
+      if (
+        positionX < element.positionX + element.width &&
+        positionX + width > element.positionX &&
+        positionY < element.positionY + element.height &&
+        positionY + height > element.positionY
+      ) {
+        result = true;
+      }
+    });
+  } else if (what === "enemySearch") {
+    justTheEnemy.forEach((element, index) => {
+      if (
+        positionX < element.positionX + element.width &&
+        positionX + width > element.positionX &&
+        positionY < element.positionY + element.height &&
+        positionY + height > element.positionY
+      ) {
+        result = index;
+      }
+    });
+  } else {
+    antiHeroObjectArray.forEach(element => {
+      if (
+        positionX < element.positionX + element.width &&
+        positionX + width > element.positionX &&
+        positionY < element.positionY + element.height &&
+        positionY + height > element.positionY
+      ) {
+        result = true;
+      }
+    });
   }
 
   return result;
 }
 
-const FRAME_LIMIT = 40;
+const FRAME_LIMIT = 12;
 let canvas = document.querySelector("canvas");
 let ctx = canvas.getContext("2d");
 let keyPresses = {};
-let currentDirection = hero.FACING_DOWN;
 let currentLoopIndex = 0;
+let currentLoopIndexAI = 0;
+
 let frameCount = 0;
 
 window.addEventListener("keydown", keyDownListener);
@@ -533,80 +220,40 @@ function keyUpListener(event) {
   keyPresses[event.key] = false;
 }
 
+let controller = new KeyPresses();
+let freezer = new ArtificialIntelligence(enemy, 60, 40);
+let cell = new ArtificialIntelligence(secondEnemy, 5, 40);
+cell.directionChange = 2;
+let buu = new ArtificialIntelligence(thirdEnemy, 60, 10);
+buu.directionChange = 3;
+
+let allExplosions = [];
+let bigExplo = new Explosion(0, 0);
+bigExplo.loadImage();
+let enemyExplosions = [];
+let enemyKiBlasts = [];
+let enemyExplo = new EnemyExplosion(0, 0);
+enemyExplo.loadImage();
+
+let gameTime = new timer();
+let countdown = gameTime.setTimer();
+gameTime.counts();
+let noTime = false;
+
 function gameLoop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  controller.handleControls();
+  freezer.raiseAwareness();
+  cell.raiseAwareness();
+  buu.raiseAwareness();
 
-  let hasMoved = false;
-
-  if (keyPresses.w) {
-    hero.moveCharacter(0, -hero.MOVEMENT_SPEED, hero.FACING_UP);
-    hasMoved = true;
-    hero.direction = 2;
-  } else if (keyPresses.s) {
-    hero.moveCharacter(0, hero.MOVEMENT_SPEED, hero.FACING_DOWN);
-    hasMoved = true;
-    hero.direction = 0;
-  }
-
-  if (keyPresses.a) {
-    hero.moveCharacter(-hero.MOVEMENT_SPEED, 0, hero.FACING_LEFT);
-    hasMoved = true;
-    hero.direction = 3;
-  } else if (keyPresses.d) {
-    hero.moveCharacter(hero.MOVEMENT_SPEED, 0, hero.FACING_RIGHT);
-    hasMoved = true;
-    hero.direction = 1;
-  }
-  if (keyPresses.j) {
-    let foundDragonball = hero.pickUpItem();
-    if (Number.isInteger(foundDragonball)) {
-      //delete here from allObjects
-      keyPresses.j = false;
-      if (allDragonballs[foundDragonball].status === "buried") {
-        allDragonballs[foundDragonball].img.src = "./img/dragonball.png";
-        allDragonballs[foundDragonball].loadImage();
-        allDragonballs[foundDragonball].status = "normal";
-        buriedTime = false;
-      } else if (allDragonballs[foundDragonball].status === "normal") {
-        canvasObjectsArray.forEach((element, index) => {
-          if (element.name === allDragonballs[foundDragonball].name) {
-            canvasObjectsArray.splice(index, 1);
-          }
-        });
-        allDragonballs.splice(foundDragonball, 1);
-        hero.collectedDragonballs++;
-        document.getElementById(
-          "counter"
-        ).innerHTML = `Dragonball counter: ${hero.collectedDragonballs}`;
-      }
-    }
-  }
-  if (keyPresses.k) {
-    if (allKiBlasts.length < 1) {
-      ki.positionX = hero.positionX;
-      ki.positionY = hero.positionY;
-      ki.direction = hero.direction;
-      allKiBlasts.push(ki);
-    }
-  }
-
-  if (hasMoved) {
-    frameCount++;
-    if (frameCount >= FRAME_LIMIT) {
-      frameCount = 0;
-      currentLoopIndex++;
-      if (currentLoopIndex >= hero.CYCLE_LOOP.length) {
-        currentLoopIndex = 0;
-      }
-    }
-  }
-
-  if (!hasMoved) {
-    currentLoopIndex = 0;
-  }
-  if (hero.collectedDragonballs < 7) {
+  if (
+    hero.collectedDragonballs < 7 &&
+    hero.lifePoints > 0 &&
+    noTime === false
+  ) {
     ground.drawFrame();
-    hero.drawFrame(currentLoopIndex, currentDirection);
+    hero.drawFrame(currentLoopIndex, hero.direction);
     obstacleOne.drawFrame();
     obstacleThree.drawFrame();
     obstacleTwo.drawFrame();
@@ -615,6 +262,13 @@ function gameLoop() {
     obstacleHouse.drawFrame();
     topWoods.drawFrame();
     topWoodsTwo.drawFrame();
+
+    justTheEnemy.forEach(element => {
+      if (element.lifePoints > 0) {
+        element.drawFrame(currentLoopIndexAI, element.direction);
+      }
+    });
+
     allDragonballs.forEach(element => {
       element.drawFrame();
     });
@@ -622,7 +276,29 @@ function gameLoop() {
       element.moveCharacter();
       element.drawFrame();
     });
+    allExplosions.forEach(element => {
+      element.drawFrame();
+      element.frameCalci();
+    });
+
+    enemyKiBlasts.forEach(element => {
+      element.moveCharacter();
+      element.drawFrame();
+    });
+    enemyExplosions.forEach(element => {
+      element.drawFrame();
+      element.frameCalci();
+    });
+
     window.requestAnimationFrame(gameLoop);
+  } else if (hero.lifePoints > 0 && noTime === false) {
+    document.getElementById("canvas").style = "display: none;";
+    document.getElementById("winningGif").style = "display: flex";
+    document.getElementById("mission").innerHTML =
+      "<span>Game Control:<br></span><span>          [Up: w]<br> [Right: d] [Down: s] [Left: a]<br> [PickUp: j] [Shoot: k]<br></span><span><br>Mission complete!<br></span><span>You found all 7 Dragonballs!<br>You safed planet Earth!<br></span>";
+  } else {
+    document.getElementById("canvas").style = "display: none;";
+    document.getElementById("gameOver").style = "display: flex";
   }
 }
 

@@ -295,7 +295,7 @@ function gameLoop() {
     document.getElementById("canvas").style = "display: none;";
     document.getElementById("winningGif").style = "display: flex";
     document.getElementById("mission").innerHTML =
-      "<span>Game Control:<br></span><span>          [Up: w]<br> [Right: d] [Down: s] [Left: a]<br> [PickUp: j] [Shoot: k]<br></span><span><br>Mission complete!<br></span><span>You found all 7 Dragonballs!<br>You safed planet Earth!<br></span>";
+      "<span>Game Control:<br></span><span>          [Up: w]<br> [Right: d] [Down: s] [Left: a]<br> [PickUp: j] [Shoot: k]<br></span><span><br>Mission complete!<br></span><span>You found all 7 Dragonballs!<br>You saved planet Earth!<br></span>";
   } else {
     document.getElementById("canvas").style = "display: none;";
     document.getElementById("gameOver").style = "display: flex";
